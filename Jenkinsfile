@@ -27,7 +27,9 @@ pipeline
         )
         stage('BUILD-AND-TAG')
         (
-            agent { label 'hello-world-soto' }
+            agent { 
+                label 'hello-world-soto'
+            }
             steps
             {
                 script
