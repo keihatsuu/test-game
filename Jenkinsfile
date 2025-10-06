@@ -47,7 +47,7 @@ pipeline {
                 script
                 {
                     echo "Pushing image ${IMAGE_NAME}:latest to Dockerhub"
-                    docker.withRegestiry('https://registry.hub.docker.com',"${DOCKERHUB_CREDNETIALS}")
+                    docker.withRegestiry('https://registry.hub.docker.com',"${DOCKERHUB_CREDENTIALS}")
                     {
                         app.push("latest")
                     }
