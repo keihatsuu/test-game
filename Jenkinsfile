@@ -11,27 +11,26 @@ pipeline
     stages
     {
         stage('Cloning Git')
-        (
+        {
             steps
             {
                 checkout scm
             }
-        )
+        }
         //Remove if no work since no snyk
         stage('SAST')
-        (
+        {
             steps
             {
                 sh 'echo Running SAST scan wtih snyk...'
             }
-        )
+        }
         stage('BUILD-AND-TAG')
-        (
+        {
             agent { 
                 label 'hello-world-soto'
             }
-            steps
-            {
+            steps {
                 script
                 {
                     // Build Docker image using Jenkins Pipeline API
@@ -40,9 +39,9 @@ pipeline
                     app.tag("latest")
                 }
             }
-        )
+        }
         stage('POST-TO-DOCKERHUB')
-        (
+        {
             agent { label 'hello-world-soto' }
             steps
             {
@@ -55,17 +54,17 @@ pipeline
                     }
                 }
             }
-        )
+        }
         //REMOVE IF NO WORK CUZ NO SNYK
         stage('DAST')
-        (
+        {
             steps
             {
                 sh 'echo Running DAST scan...'
             }
-        )
+        }
         stage('DEPLOYMENT')
-        (
+        {
             agent { label 'hello-world-soto' }
             steps
             {
@@ -83,6 +82,6 @@ pipeline
                 }
                 echo 'Deployment completed succcessfully'
             }
-        )
+        }
     }
 }
