@@ -6,7 +6,7 @@ services:
     container_name: something_funny
     ports:
       - "80:3000"
-    enviornment:
+    environment:
       - PORT=3000
     volumes:
       - ./:/app
