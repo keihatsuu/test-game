@@ -42,13 +42,10 @@ pipeline {
         stage('POST-TO-DOCKERHUB')
         {
             agent { label 'hello-world-soto' }
-            steps
-            {
-                script
-                {
-                    echo "Pushing image ${IMAGE_NAME}:latest to Dockerhub"
-                    docker.withRegestiry('https://registry.hub.docker.com',"${DOCKERHUB_CREDENTIALS}")
-                    {
+            steps {
+                script {
+                    echo "Pushing image ${IMAGE_NAME}:latest to Docker Hub..."
+                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKERHUB_CREDENTIALS}") {
                         app.push("latest")
                     }
                 }
