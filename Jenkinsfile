@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    enviornment
+    environment
     {
         //Docker hub credentials ID stored in Jenkins
         DOCKERHUB_CREDENTIALS ='cybr-3120'
