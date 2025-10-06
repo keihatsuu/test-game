@@ -66,8 +66,8 @@ pipeline
         (
             agent { label 'hello-world-soto' }
             steps
-             echo 'Starting deployment using docker-compose...'
             {
+                echo 'Starting deployment using docker-compose...'
                 script
                 {
                     dir("${WORKSPACE}")
@@ -79,8 +79,8 @@ pipeline
                         '''
                     }
                 }
+                echo 'Deployment completed succcessfully'
             }
-            echo 'Deployment completed succcessfully'
         )
     }
 }
