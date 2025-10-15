@@ -17,12 +17,24 @@ pipeline {
             }
         }
         //Remove if no work since no snyk
-        stage('SAST')
+        stage('SAST-TEST')
         {
+            agent { 
+                label 'hello-world-soto'
+            }
             steps
             {
+                script
+                {
+                    snykSecurity
+                    (
+                        snykInstallation: 'Snyk-Installations',
+                        snykTokenId: 'Snyk-API-Token',
+                        severity: 'critical'
+                    )
+                }
                 sh 'echo Running SAST scan wtih snyk...'
-            }
+            }    
         }
         stage('BUILD-AND-TAG')
         {
