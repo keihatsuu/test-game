@@ -16,7 +16,6 @@ pipeline {
                 checkout scm
             }
         }
-        //Remove if no work since no snyk
         stage('SAST-TEST')
         {
             agent { 
@@ -34,6 +33,21 @@ pipeline {
                 }
                 sh 'echo Running SAST scan wtih snyk...'
             }    
+        }
+        stage('SonarQube Analysis') {
+            agent {
+                label 'hello-world-soto'
+            }
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube-Scanner'
+                    withSonarQubeEnv('SonarQube-Installations') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=gameapp \
+                            -Dsonar.sources=."
+                    }
+                }
+            }
         }
         stage('BUILD-AND-TAG')
         {
